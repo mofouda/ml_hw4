@@ -54,7 +54,7 @@ The New York City Department of Health general health and physical activity has 
 
 Then we examine the data for feature with high correlations. No high correlations was found.
 
-```{r}
+```{r correlations}
 cor_pat <-
     nycpat %>% 
     select(where(is.numeric)) %>% 
@@ -66,7 +66,7 @@ cor_pat <-
 
 Next we partition data into training and testing (use a 70/30 split)
 
-```{r}
+```{r partitioning}
 set.seed(123)
 train.index<-createDataPartition(nycpat$healthydays, p=0.7, list=FALSE)
 
@@ -102,7 +102,7 @@ In model 2 we use:
 * `dem8`: birthplace in US or outside
 * `povertygroup`: poverty status by household income
 
-```{r}
+```{r models}
 set.seed(123)
 
 regresscontrol <- trainControl(method ="repeatedcv", number = 10, repeats = 5)
@@ -116,7 +116,7 @@ lm2 <- train(healthydays ~ chronic1 + chronic3 + bmi + alcohol1 + gpaq8totmin + 
 
 We evaluate the two models performance using test data based on the root mean square error (RMSE) for each as an evaluation metric.
 
-```{r}
+```{r evaluation}
 set.seed(123)
 
 predictions1 <- predict(lm1, pat_test)
@@ -137,7 +137,7 @@ Using the dataset from the Group assignment Part 3 (USArrests), identify cluster
 
 #### Tidying 
 
-```{r}
+```{r tidying}
 data("USArrests")
 
 usarrests <-
@@ -177,7 +177,7 @@ ggbiplot(usarrests.pca, choices=c(2,3))
 Here we conduct a hierarchical analysis using Euclidian distance measure to construct your dissimilarity matrix and multiple both Complete and Ward methods of the agglomerative algorithm to obtain the optimal number of clusters.
 
 
-```{r}
+```{r clusters}
 set.seed(123)
 # Create Dissimilarity matrix
 d.matrix <- dist(arrestsdf, method = "euclidean")
